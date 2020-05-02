@@ -8,7 +8,8 @@ const NoteItem = (props) => {
     return (string.length <19 ? string : `${string.slice(0,18)}...`)
   }
 
-  return (<li onClick ={()=>{console.log(note); onClickNoteItemHandler(note)}}> 
+  // return (<li onClick ={()=>{console.log(note); onClickNoteItemHandler(note)}}> 
+  return (<li onClick ={()=>{onClickNoteItemHandler(note)}}> 
     {/* <h2>{props.note.title}</h2>
     <p>{props.note.body}</p> */}
     <h2>{note && note.title}</h2>

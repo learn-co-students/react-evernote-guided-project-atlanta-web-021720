@@ -16,39 +16,59 @@ class NoteContainer extends Component {
 
   componentDidMount()
   {
-    // fetch(url)
-    // .then(res=>res.json())
-    // .then(data=>this.setState({notes: data}))
     Adapter.getData(url)
     .then(data=>this.setState({notes: data}))
   }
 
   onClickNoteItemHandler = (note) =>
   {
-    console.log(note)
+    // console.log(note)
     this.setState({selectedNote: note, isEdit: false})
   }
 
   onClickNoteViewerEditButtonHandler = () =>
   {
-    console.log(this.state.isEdit)
+    // console.log(this.state.isEdit)
     this.setState({isEdit: true})
   }
 
-  onClickNoteEditCancelButtonHandler = (event) =>
+  onClickNoteEditCancelButtonHandler = () =>
   {
     console.log('onClickNoteEditCancelButtonHandler')
   }
 
-  onClickNoteEditSaveButtonHandler = (event,note) =>
+  onClickNoteEditSaveButtonHandler = (event,edit_note) =>
   {
     event.preventDefault();
-    console.log('onClickNoteEditSaveButtonHandler')
-    Adapter.editData(url,note.id,note)
-    .then(console.log)
+    // console.log('onClickNoteEditSaveButtonHandler')
+    Adapter.editData(url,edit_note.id,edit_note)
+    .then(data=>{
+      console.log(data)
+      this.upateNote(data)
+    })
+
+    // this.upateNote(edit_note)
   }
 
+  upateNote=(note)=>
+  {
+    this.setState(
+        preState=>({
+        notes: this.getUpdateData(preState.notes, note)
+      })
+    )
+  }
   
+  getUpdateData=(data_array, new_data)=>
+  {
+    //debugger
+    let foundNote = data_array.find(data=>data.id === new_data.id)
+    let index = data_array.indexOf(foundNote);
+    let newArray= [...data_array];
+    newArray[index] = new_data;
+    
+    return newArray
+  }
 
   render() {
     const {notes,selectedNote,isEdit} = this.state;
