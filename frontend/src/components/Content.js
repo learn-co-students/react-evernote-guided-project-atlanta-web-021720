@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import NoteEditor from './NoteEditor';
 import NoteViewer from './NoteViewer';
 import Instructions from './Instructions';
+import Util from './Uitl'
 
 /*
   Advice: If you cannot figure out how to get this component to work,
@@ -15,12 +16,12 @@ class Content extends Component {
 
   renderContent = () => {
     let {isEdit,selectedNote,onClickNoteViewerEditButtonHandler,onClickNoteEditCancelButtonHandler,onClickNoteEditSaveButtonHandler} = this.props;
-    if (isEdit&&!this.isEmpty(selectedNote)) {
+    if (isEdit&&!Util.isObjectEmpty(selectedNote)) {
       return <NoteEditor selectedNote =  {selectedNote} 
                         onClickNoteEditCancelButtonHandler={onClickNoteEditCancelButtonHandler}
                         onClickNoteEditSaveButtonHandler={onClickNoteEditSaveButtonHandler}
               />;
-    } else if (!isEdit&&!this.isEmpty(selectedNote)) {
+    } else if (!isEdit&&!Util.isObjectEmpty(selectedNote)) {
       return <NoteViewer selectedNote =  {selectedNote}
                         onClickNoteViewerEditButtonHandler={onClickNoteViewerEditButtonHandler}
               />;

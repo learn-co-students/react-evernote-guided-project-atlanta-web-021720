@@ -35,6 +35,8 @@ class NoteContainer extends Component {
   onClickNoteEditCancelButtonHandler = () =>
   {
     console.log('onClickNoteEditCancelButtonHandler')
+        // console.log(note)
+    this.setState({selectedNote: {}, isEdit: false})
   }
 
   onClickNoteEditSaveButtonHandler = (event,edit_note) =>
@@ -54,12 +56,12 @@ class NoteContainer extends Component {
   {
     this.setState(
         preState=>({
-        notes: this.getUpdateData(preState.notes, note)
+        notes: this.getUpdateArrayData(preState.notes, note)
       })
     )
   }
   
-  getUpdateData=(data_array, new_data)=>
+  getUpdateArrayData=(data_array, new_data)=>
   {
     //debugger
     let foundNote = data_array.find(data=>data.id === new_data.id)
