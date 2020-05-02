@@ -39,18 +39,25 @@ class NoteEditor extends Component {
 
   render() { 
     // const {selectedNote, onChangeNoteEditorTitleHandler, onChangeNoteEditorBodyHandler} = this.props;   
-    const {selectedNote} = this.props;   
+    const {selectedNote,onClickNoteEditCancelButtonHandler,onClickNoteEditSaveButtonHandler} = this.props;   
 
     return (
       <form className="note-editor">
         {/* <input type="text" name="title" defaultValue = {selectedNote.title} onChange = {(event)=>onChangeNoteEditorTitleHandler(event)}/>
         <textarea name="body" defaultValue = {selectedNote.body} onChange = {(event)=>onChangeNoteEditorBodyHandler(event)}/> */}
-        <input type="text" name="title" defaultValue = {selectedNote.title} onChange = {(event)=>this.onChangeNoteEditorHandler(event)}/>
-        <textarea name="body" defaultValue = {selectedNote.body} onChange = {(event)=>this.onChangeNoteEditorHandler(event)}/>
+        <input type="text" 
+              name="title" 
+              defaultValue = {selectedNote.title} 
+              onChange = {(event)=>this.onChangeNoteEditorHandler(event)}
+        />
+        <textarea name="body" 
+                  defaultValue = {selectedNote.body} 
+                  onChange = {(event)=>this.onChangeNoteEditorHandler(event)}
+        />
 
         <div className="button-row">
-          <input className="button" type="submit" value="Save" />
-          <button type="button">Cancel</button>
+          <input className="button" type="submit" value="Save" onClick = {(event)=>{onClickNoteEditSaveButtonHandler(event,this.state.note)}}/>
+          <button type="button" onClick = {onClickNoteEditCancelButtonHandler}>Cancel</button>
         </div>
       </form>
     );

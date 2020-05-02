@@ -14,13 +14,15 @@ class Content extends Component {
 
 
   renderContent = () => {
-    let {isEdit,selectedNote,onClickNoteEditButtonHandler} = this.props;
-    if (isEdit) {
+    let {isEdit,selectedNote,onClickNoteViewerEditButtonHandler,onClickNoteEditCancelButtonHandler,onClickNoteEditSaveButtonHandler} = this.props;
+    if (isEdit&&!this.isEmpty(selectedNote)) {
       return <NoteEditor selectedNote =  {selectedNote} 
+                        onClickNoteEditCancelButtonHandler={onClickNoteEditCancelButtonHandler}
+                        onClickNoteEditSaveButtonHandler={onClickNoteEditSaveButtonHandler}
               />;
-    } else if (!this.isEmpty(selectedNote)) {
+    } else if (!isEdit&&!this.isEmpty(selectedNote)) {
       return <NoteViewer selectedNote =  {selectedNote}
-                         onClickNoteEditButtonHandler={onClickNoteEditButtonHandler}
+                        onClickNoteViewerEditButtonHandler={onClickNoteViewerEditButtonHandler}
               />;
     } else {
       return <Instructions />;
