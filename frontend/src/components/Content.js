@@ -11,14 +11,23 @@ import Instructions from './Instructions';
           refactor to get this Content component to work.
 */
 class Content extends Component {
+
+
   renderContent = () => {
-    if (false) {
-      return <NoteEditor />;
-    } else if (false) {
-      return <NoteViewer />;
+    let {isEdit,selectedNote,onClickNoteEditButtonHandler,onChangeNoteEditorTitleHandler,onChangeNoteEditorBodyHandler} = this.props;
+    if (isEdit) {
+      return <NoteEditor selectedNote =  {selectedNote}/>;
+    } else if (!this.isEmpty(selectedNote)) {
+      return <NoteViewer selectedNote =  {selectedNote}
+                         onClickNoteEditButtonHandler={onClickNoteEditButtonHandler}
+              />;
     } else {
       return <Instructions />;
     }
+  }
+
+  isEmpty=(obj) =>{
+    return Object.keys(obj).length === 0;
   }
 
   render() {
