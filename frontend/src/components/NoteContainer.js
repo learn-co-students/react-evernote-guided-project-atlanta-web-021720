@@ -3,6 +3,7 @@ import Search from './Search';
 import Sidebar from './Sidebar';
 import Content from './Content';
 import Adapter from './Adapter'
+import Util from './Uitl'
 const url = 'http://localhost:3000/api/v1/notes'
 
 class NoteContainer extends Component {
@@ -18,6 +19,23 @@ class NoteContainer extends Component {
   {
     Adapter.getData(url)
     .then(data=>this.setState({notes: data}))
+  }
+
+  getFilteredNoted()
+  {
+    let filteredNotes = [...this.state.notes]
+    if(this.state.searchFilter!=='')
+    {
+      filteredNotes = filteredNotes.filter((note)=>note.title.toLowerCase().includes(this.state.searchFilter.toLowerCase()))
+    }
+    return filteredNotes
+  }
+
+  onChangeSearchHandler = (event) =>
+  {
+    event.preventDefault();
+    this.setState({searchFilter: event.target.value, isEdit:false, selectedNote:{}})
+
   }
 
   onClickNoteItemHandler = (note) =>
@@ -54,31 +72,31 @@ class NoteContainer extends Component {
 
   upateNote=(note)=>
   {
-    this.setState(
+    this.setState( 
         preState=>({
-        notes: this.getUpdateArrayData(preState.notes, note)
+        notes: Util.getUpdateArrayData(preState.notes, note,note.id), isEdit: false, selectedNote: {}
       })
     )
   }
   
-  getUpdateArrayData=(data_array, new_data)=>
-  {
-    //debugger
-    let foundNote = data_array.find(data=>data.id === new_data.id)
-    let index = data_array.indexOf(foundNote);
-    let newArray= [...data_array];
-    newArray[index] = new_data;
+  // getUpdateArrayData=(data_array, new_data)=>
+  // {
+  //   //debugger
+  //   let foundNote = data_array.find(data=>data.id === new_data.id)
+  //   let index = data_array.indexOf(foundNote);
+  //   let newArray= [...data_array];
+  //   newArray[index] = new_data;
     
-    return newArray
-  }
+  //   return newArray
+  // }
 
   render() {
     const {notes,selectedNote,isEdit} = this.state;
     return (
       <Fragment>
-        <Search />
+        <Search onChangeSearchHandler = {this.onChangeSearchHandler}/>
         <div className='container'>
-          <Sidebar notes={notes}
+          <Sidebar notes={this.getFilteredNoted()}
                   selectedNote =  {selectedNote}
                   onClickNoteItemHandler = {this.onClickNoteItemHandler}
           />
