@@ -24,7 +24,7 @@ class NoteContainer extends Component {
   onClickNoteItemHandler = (note) =>
   {
     console.log(note)
-    this.setState({selectedNote: note})
+    this.setState({selectedNote: note, isEdit: false})
   }
 
   onClickNoteEditButtonHandler = () =>
@@ -32,17 +32,6 @@ class NoteContainer extends Component {
     console.log(this.state.isEdit)
     this.setState({isEdit: true})
   }
-
-  onChangeNoteEditorTitleHandler(note)
-  {
-
-  }
-
-  onChangeNoteEditorBodyHandler(note)
-  {
-
-  }
-
 
   render() {
     const {notes,selectedNote,isEdit} = this.state;
@@ -56,8 +45,6 @@ class NoteContainer extends Component {
           />
           <Content selectedNote={selectedNote} 
                   onClickNoteEditButtonHandler={this.onClickNoteEditButtonHandler}
-                  onChangeNoteEditorTitleHandler={this.onChangeNoteEditorTitleHandler}
-                  onChangeNoteEditorBodyHandler={this.onChangeNoteEditorBodyHandler}
                   isEdit = {isEdit}
           />
         </div>
