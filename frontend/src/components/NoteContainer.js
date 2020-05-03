@@ -44,6 +44,11 @@ class NoteContainer extends Component {
     this.setState({selectedNote: note, isEdit: false})
   }
 
+  onClickNewButtonHandler = () =>
+  {
+    console.log('onClickNewButtonHandler')
+  }
+
   onClickNoteViewerEditButtonHandler = () =>
   {
     // console.log(this.state.isEdit)
@@ -99,6 +104,7 @@ class NoteContainer extends Component {
           <Sidebar notes={this.getFilteredNoted()}
                   selectedNote =  {selectedNote}
                   onClickNoteItemHandler = {this.onClickNoteItemHandler}
+                  onClickNewButtonHandler = {this.onClickNewButtonHandler}
           />
           <Content selectedNote={selectedNote} 
                   onClickNoteViewerEditButtonHandler={this.onClickNoteViewerEditButtonHandler}
