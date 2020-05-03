@@ -50,18 +50,9 @@ class NoteContainer extends Component {
 
     Adapter.createData(url,newNote)
     .then(data=>{
-      console.log(data)
-      // (preState)=>([...preState.notes,data])
-      
-      this.setState( (preState)=>({notes: [...preState.notes,data]}))
-      
-      //this.setState({notes: [...this.state.notes,data]})
-      
-      // this.setState({notes: (preState)=>{
-      //   console.log([...preState.notes,data])
-      //   return [...preState.notes,data]
-      // }})
-      
+      //console.log(data)
+      this.setState( (preState)=>({notes: [...preState.notes,data]}))      
+      //this.setState({notes: [...this.state.notes,data]})      
     })
 
 
@@ -104,17 +95,6 @@ class NoteContainer extends Component {
     )
   }
   
-  // getUpdateArrayData=(data_array, new_data)=>
-  // {
-  //   //debugger
-  //   let foundNote = data_array.find(data=>data.id === new_data.id)
-  //   let index = data_array.indexOf(foundNote);
-  //   let newArray= [...data_array];
-  //   newArray[index] = new_data;
-    
-  //   return newArray
-  // }
-
   render() {
     const {selectedNote,isEdit} = this.state;
     return (
