@@ -54,7 +54,7 @@ class NoteContainer extends Component {
   {
     console.log('onClickNoteEditCancelButtonHandler')
         // console.log(note)
-    this.setState({selectedNote: {}, isEdit: false})
+    this.setState({isEdit: false})
   }
 
   onClickNoteEditSaveButtonHandler = (event,edit_note) =>
