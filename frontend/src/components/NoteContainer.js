@@ -46,6 +46,26 @@ class NoteContainer extends Component {
 
   onClickNewButtonHandler = () =>
   {
+    let newNote = {title: 'default', body: 'palceholder'}
+
+    Adapter.createData(url,newNote)
+    .then(data=>{
+      console.log(data)
+      // (preState)=>([...preState.notes,data])
+      
+      this.setState( (preState)=>({notes: [...preState.notes,data]}))
+      
+      //this.setState({notes: [...this.state.notes,data]})
+      
+      // this.setState({notes: (preState)=>{
+      //   console.log([...preState.notes,data])
+      //   return [...preState.notes,data]
+      // }})
+      
+    })
+
+
+    // debugger
     console.log('onClickNewButtonHandler')
   }
 
@@ -96,7 +116,7 @@ class NoteContainer extends Component {
   // }
 
   render() {
-    const {notes,selectedNote,isEdit} = this.state;
+    const {selectedNote,isEdit} = this.state;
     return (
       <Fragment>
         <Search onChangeSearchHandler = {this.onChangeSearchHandler}/>
