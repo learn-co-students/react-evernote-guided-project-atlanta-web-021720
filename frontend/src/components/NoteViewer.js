@@ -6,7 +6,7 @@ const NoteViewer = (props) => {
   return (
     <Fragment>
       <h2>{selectedNote.title}</h2>
-      <p>{selectedNote.body}}</p>
+      <p>{selectedNote.body}</p>
       <button onClick = {onClickNoteViewerEditButtonHandler}>Edit</button>
     </Fragment>
   );
