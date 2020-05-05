@@ -11,8 +11,10 @@ class NoteContainer extends Component {
     state = {
     notes: [],
     searchFilter: '',
+    searchSelect: 'title',
     selectedNote: {},
-    isEdit: false
+    isEdit: false,
+    sortSelect: 'All'
   }
 
   componentDidMount()
@@ -21,14 +23,45 @@ class NoteContainer extends Component {
     .then(data=>this.setState({notes: data}))
   }
 
-  getFilteredNoted()
+  getSortedNotes =(notes) => 
   {
-    let filteredNotes = [...this.state.notes]
-    if(this.state.searchFilter!=='')
+    let sortedNotes = [...notes]
+    
+    // console.log(this.state.sortSelect)
+    // console.log(this.state.sortSelect ==='Alphabetical')
+
+    if(this.state.sortSelect==='Alphabetical')
     {
-      filteredNotes = filteredNotes.filter((note)=>note.title.toLowerCase().includes(this.state.searchFilter.toLowerCase()))
+      sortedNotes.sort((a,b)=>a.title<b.title?-1:1)
+      // console.log(sortedNotes)
+    }
+    return sortedNotes
+  }
+
+  getFilteredNotes =(notes) =>
+  {
+    let filteredNotes = [...notes]
+    let searchFilter = this.state.searchFilter
+    let searchSelect = this.state.searchSelect
+    if(searchFilter!=='')
+    {
+      //filteredNotes = filteredNotes.filter((note)=>note[searchSelect].toLowerCase().includes(this.state.searchFilter.toLowerCase()))
+      filteredNotes = filteredNotes.filter(
+        
+        (note)=>{
+          
+          console.log(searchSelect);
+          console.log(note[searchSelect]);
+          return note[searchSelect].toLowerCase().includes(this.state.searchFilter.toLowerCase())
+        }
+      )
     }
     return filteredNotes
+  }
+
+  getNotes = (notes) =>
+  {
+    return this.getSortedNotes(this.getFilteredNotes(notes))
   }
 
   onChangeSearchHandler = (event) =>
@@ -36,6 +69,19 @@ class NoteContainer extends Component {
     event.preventDefault();
     this.setState({searchFilter: event.target.value, isEdit:false, selectedNote:{}})
 
+  }
+
+  OnChangeFilterSelectHandler = (event) =>
+  {
+    console.log(event.target.value)
+    event.preventDefault();
+    this.setState({searchSelect: event.target.value})
+  }
+  
+  OnChangeSortSelectHandler = (event) =>
+  {
+    event.preventDefault();
+    this.setState({sortSelect: event.target.value})
   }
 
   onClickNoteItemHandler = (note) =>
@@ -99,9 +145,12 @@ class NoteContainer extends Component {
     const {selectedNote,isEdit} = this.state;
     return (
       <Fragment>
-        <Search onChangeSearchHandler = {this.onChangeSearchHandler}/>
+        <Search onChangeSearchHandler = {this.onChangeSearchHandler}
+                OnChangeFilterSelectHandler = {this.OnChangeFilterSelectHandler}
+                OnChangeSortSelectHandler = {this.OnChangeSortSelectHandler}
+        />
         <div className='container'>
-          <Sidebar notes={this.getFilteredNoted()}
+          <Sidebar notes={this.getNotes(this.state.notes)}
                   selectedNote =  {selectedNote}
                   onClickNoteItemHandler = {this.onClickNoteItemHandler}
                   onClickNewButtonHandler = {this.onClickNewButtonHandler}
