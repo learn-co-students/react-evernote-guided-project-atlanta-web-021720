@@ -112,6 +112,16 @@ class NoteContainer extends Component {
     this.setState({isEdit: true})
   }
 
+  onClickNoteViewerEditDeleteHandler = (edit_note) =>
+  {
+    console.log(edit_note)
+    Adapter.deleteData(url,edit_note.id)
+    .then(data=>{
+      //console.log(data)
+      this.deleteNote(edit_note)
+    })
+  }
+
   onClickNoteEditCancelButtonHandler = () =>
   {
     console.log('onClickNoteEditCancelButtonHandler')
@@ -141,6 +151,16 @@ class NoteContainer extends Component {
     )
   }
   
+  deleteNote=(delete_note)=>
+  {
+    //let notes = [...this.state.notes]
+    //let newNotes = [...this.state.notes].filter(note=>note.id !== delete_note.id)
+    //console.log(newNotes)
+   // debugger
+    this.setState((preState)=>({notes: [...preState.notes].filter(note=>note.id !== delete_note.id)}));
+    
+  }
+
   render() {
     const {selectedNote,isEdit} = this.state;
     return (
@@ -157,6 +177,7 @@ class NoteContainer extends Component {
           />
           <Content selectedNote={selectedNote} 
                   onClickNoteViewerEditButtonHandler={this.onClickNoteViewerEditButtonHandler}
+                  onClickNoteViewerEditDeleteHandler={this.onClickNoteViewerEditDeleteHandler}
                   onClickNoteEditCancelButtonHandler={this.onClickNoteEditCancelButtonHandler}
                   onClickNoteEditSaveButtonHandler={this.onClickNoteEditSaveButtonHandler}
                   isEdit = {isEdit}
