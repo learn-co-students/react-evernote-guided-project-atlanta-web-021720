@@ -1,11 +1,15 @@
 import React, { Fragment } from 'react';
 
 const NoteViewer = (props) => {
+  const {selectedNote, onClickNoteViewerEditButtonHandler,onClickNoteViewerEditDeleteHandler} = props;
+  
   return (
     <Fragment>
-      <h2>Title</h2>
-      <p>Body</p>
-      <button>Edit</button>
+      <h2>{selectedNote.title}</h2>
+      <p>{selectedNote.body}</p>
+      <button onClick = {onClickNoteViewerEditButtonHandler}>Edit</button>
+      <button onClick = {()=>{onClickNoteViewerEditDeleteHandler(selectedNote)}}>Delete</button>
+      {/* <button onClick = {null}>Delete</button> */}
     </Fragment>
   );
 }
