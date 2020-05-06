@@ -3,10 +3,13 @@ import NoteList from './NoteList';
 
 class Sidebar extends Component {
   render() {
+    const {notes, onClickNoteItemHandler, onClickNewButtonHandler} = this.props;
     return (
       <div className='master-detail-element sidebar'>
-        <NoteList />
-        <button>New</button>
+        <NoteList notes={notes}
+                  onClickNoteItemHandler = {onClickNoteItemHandler}
+        />
+        <button onClick = {onClickNewButtonHandler}>New</button>
       </div>
     );
   }
